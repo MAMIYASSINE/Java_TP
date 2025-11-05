@@ -8,7 +8,7 @@ public class Zoo {
     private Aquatic[] aquaticAnimals = new Aquatic[10];
     private String name;
     private String city;
-    private final int  NBR_CAGES=25;
+    private final int  NBR_CAGES=3;
     private int nbrAnimals;
     private int nbrAquaticAnimals;
 
@@ -92,25 +92,55 @@ public class Zoo {
     public String toString(){
         return "tn.esprit.gestionzoo.entities.Zoo name: "+name +"tn.esprit.gestionzoo.entities.Zoo city: "+city +"tn.esprit.gestionzoo.entities.Zoo nbr cages: "+NBR_CAGES;
     }
-
-    public boolean addAnimal(Animal animal){
-        if (this.searchAnimal(animal)!=-1) {
-            System.out.println(animal+" existe de la liste de animals");
-            return false;
-        }
-        else {
-            if(!isZooFull()){
-//            if (nbrAnimals < animals.length) {
-                animals[nbrAnimals] = animal;
-                nbrAnimals++;
-                System.out.println(animal+" ajouté avec succées");
-                return true;
-            } else {
-                System.out.println("la liste des animals  est complet");
-                return false;
-            }
-        }
+//v1.0
+//    public boolean addAnimal(Animal animal){
+//        if (this.searchAnimal(animal)!=-1) {
+//            System.out.println(animal+" existe de la liste de animals");
+//            return false;
+//        }
+//        else {
+//            if(!isZooFull()){
+////            if (nbrAnimals < animals.length) {
+//                animals[nbrAnimals] = animal;
+//                nbrAnimals++;
+//                System.out.println(animal+" ajouté avec succées");
+//                return true;
+//            } else {
+//                System.out.println("la liste des animals  est complet");
+//                return false;
+//            }
+//        }
+//    }
+//v2.0
+//public void addAnimal(Animal animal) throws ZooFullException {
+//    if (this.searchAnimal(animal) != -1) {
+//        System.out.println(animal + " existe déjà dans la liste des animaux");
+//        return;
+//    }
+//    if (isZooFull()) {
+//        throw new ZooFullException("Le zoo est plein, impossible d’ajouter un nouvel animal : " + animal);
+//    }
+//    animals[nbrAnimals] = animal;
+//    nbrAnimals++;
+//    System.out.println(animal + " ajouté avec succès !");
+//}
+//v2.1
+public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
+    if (this.searchAnimal(animal) != -1) {
+        System.out.println(animal + " existe déjà dans la liste des animaux");
+        return;
     }
+    if (animal.getAge() < 0) {
+        throw new InvalidAgeException("Âge d’animal invalide : l’âge ne peut pas être négatif. (" + animal.getName() + ")");
+    }
+    if (isZooFull()) {
+        throw new ZooFullException("Le zoo est plein, impossible d’ajouter un nouvel animal : " + animal.getName());
+    }
+    animals[nbrAnimals] = animal;
+    nbrAnimals++;
+    System.out.println( " ajouté avec succès !");
+}
+
     public void afficheAnimals(){
         for(int i=0; i<nbrAnimals; i++){
             System.out.println(animals[i]);

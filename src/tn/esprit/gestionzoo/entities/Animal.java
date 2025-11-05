@@ -12,14 +12,14 @@ public class Animal {
         this.family = family;
         this.name = name;
         Scanner sc = new Scanner(System.in);
-        while(age<0){
-            System.out.println("Please enter a valid age");
-            age = sc.nextInt();
-        }
-        if (age>0){
-            this.age = age;
-        }
-//        this.age = age;
+//        while(age<0){
+//            System.out.println("Please enter a valid age");
+//            age = sc.nextInt();
+//        }
+//        if (age>0){
+//            this.age = age;
+//        }
+        this.age = age;
 
         this.isMammal = isMammal;
 
